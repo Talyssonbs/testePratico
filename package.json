@@ -1,0 +1,28 @@
+{
+  "name": "testepraticoapi",
+  "version": "1.0.0",
+  "main": "./src/server.js",
+  "scripts": {
+    "seed": "node ./src/database/popular.js",
+    "start": "node ./src/server.js",
+    "dev": "nodemon",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "sequelize": "^6.21.3",
+    "sqlite3": "^5.0.10",
+    "supertest": "^6.2.4",
+    "test": "^3.1.0"
+  },
+  "type": "module",
+  "devDependencies": {
+    "jest": "^28.1.3",
+    "nodemon": "^2.0.19"
+  },
+  "description": ""
+}
