@@ -14,6 +14,7 @@ Produto.init({
         descricao: DataTypes.STRING,
         preco_atual: DataTypes.NUMBER,
         preco: DataTypes.NUMBER,
+        parcelas: DataTypes.STRING,
         favoritos: {
             type: DataTypes.BOOLEAN,
             allowNull: false

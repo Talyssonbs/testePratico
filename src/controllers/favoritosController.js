@@ -68,11 +68,11 @@ export default (app) => {
     app.put("/produto/:id", async (req, res) => {
         const requisitarId = req.params.id
         const newParams = req.body
-        const atributos = ["produto_id", "descricao", "preco_atual", "preco", "favoritos"]
+        const atributos = ["produto_id", "descricao", "preco_atual", "preco", "parcelas", "favoritos"]
         try {
             for (attr in newParams) {
                 if (atributos.indexOf(attr) < 0)
-                    throw new Error(`O atributo não é valido, use um desses: produto_id, descricao, preco, favoritos`)
+                    throw new Error(`O atributo não é valido, use um desses: produto_id, descricao, preco, parcelas, favoritos`)
             }
             let produto = await Produto.findOne({
                 where: {
@@ -84,6 +84,7 @@ export default (app) => {
                 "descricao": newParams.descricao ? newParams.descricao : produto.descricao,
                 "preco_atual": newParams.preco_atual ? newParams.preco_atual : produto.preco_atual,
                 "preco": newParams.preco ? newParams.preco : produto.preco,
+                "parcelas": newParams.parcelas ? newParams.parcelas : produto.parcelas,
                 "favoritos": newParams.favoritos === true || newParams.favoritos === false ? newParams.favoritos : produto.favoritos,
             })
             await produto.save()
