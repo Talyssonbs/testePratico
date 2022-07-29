@@ -27,7 +27,7 @@ export default (app) => {
             })
         }
     })
-    app.get("/produto/:id", async (req, res) => {
+    app.get("/produto/id/:id", async (req, res) => {
         const requisitarId = req.params.id
         try {
             const produto = await Produto.findOne({
@@ -50,22 +50,21 @@ export default (app) => {
             })
         }
     })
-    app.get("/produto/favoritos/:favoritos", async (req, res) => {})
     app.post("/produto", async (req, res) => {
         try {
             await Produto.create(req.body)
-            res.json({
+            res.status(201).json({
                 "Mensagem": `O produto ${req.body.descricao} foi inserido !`,
                 "error": false
             })
         } catch (e) {
-            res.json({
+            res.status(400).json({
                 "Mensagem": `ERROR: ${e.message}`,
                 "error": true
             })
         }
     })
-    app.put("/produto/:id", async (req, res) => {
+    app.put("/produto/id/:id", async (req, res) => {
         const requisitarId = req.params.id
         const newParams = req.body
         const atributos = ["produto_id", "descricao", "preco_atual", "preco", "parcelas", "favoritos"]
@@ -100,20 +99,32 @@ export default (app) => {
             })
         }
     })
-    app.delete("/produto/:id", async (req, res) => {
+    app.delete("/produto/id/:id", async (req, res) => {
         const requisitarId = req.params.id
         try {
-            await Produto.destroy({
+            const produto = await Produto.findOne({
                 where: {
                     id: requisitarId
                 }
             })
-            res.json({
-                "mensagem": `O produto de id ${requisitarId} foi deletado !`,
-                "error": false
-            })
+            if (produto) {
+                await Produto.destroy({
+                    where: {
+                        id: requisitarId
+                    }
+                })
+                res.status(200).json({
+                    "mensagem": `O produto de id ${requisitarId} foi deletado !`,
+                    "error": false
+                })
+            } else {
+                res.status(404).json({
+                    "mensagem": `ERROR: O produto de id ${requisitarId} não existe`,
+                    "error": true
+                })
+            }
         } catch (e) {
-            res.json({
+            res.status(400).json({
                 "mensagem": `ERROR: ${e.message}`,
                 "error": true
             })

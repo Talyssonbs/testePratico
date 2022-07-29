@@ -12,13 +12,15 @@ Produto.init({
             allowNull: false
         },
         descricao: DataTypes.STRING,
-        preco_atual: DataTypes.NUMBER,
-        preco: DataTypes.NUMBER,
+        preco_atual: DataTypes.STRING,
+        preco: DataTypes.STRING,
         parcelas: DataTypes.STRING,
         favoritos: {
             type: DataTypes.BOOLEAN,
             allowNull: false
-        }
+        },
+        valor: DataTypes.STRING,
+        url_imagem: DataTypes.STRING,
     }, {
         sequelize,
         modelName: "produto",
